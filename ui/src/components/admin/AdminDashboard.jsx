@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../api';
 import React, { useEffect, useState } from 'react'
 import { FaUsers, FaUserTie, FaBriefcase } from 'react-icons/fa'
 import AdminProjects from './AdminProjects';
@@ -8,7 +8,7 @@ const AdminDashboard = () => {
     fetchData()
   }, [])
   const fetchData = async () => {
-    const res = await axios.get('http://localhost:9000/admin-stats')
+    const res = await axios.get('/admin-stats')
     setData(res?.data?.result)
   }
 

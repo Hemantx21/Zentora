@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../api";
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
@@ -10,7 +10,7 @@ const AdminClients = () => {
   }, []);
 
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:9000/admin-clients-list");
+    const res = await axios.get("/admin-clients-list");
       setData(res?.data?.result);
   };
 

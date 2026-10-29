@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../api'
 import React, { useEffect, useState } from 'react'
 import { FaCheck, FaTimes } from 'react-icons/fa'
 import Swal from 'sweetalert2'
@@ -11,9 +11,9 @@ const UserPlans = () => {
   const fetchData = async () => {
     const info = JSON.parse(localStorage.getItem('info') || '{}')
     const [plansRes, statsRes] = await Promise.all([
-      axios.get('http://localhost:9000/admin-get-plans'),
+      axios.get('/admin-get-plans'),
       info?._id
-        ? axios.get(`http://localhost:9000/user-stats?userId=${info._id}`)
+        ? axios.get(`/user-stats?userId=${info._id}`)
         : Promise.resolve(null)
     ])
     setData(plansRes?.data?.result || [])
@@ -42,7 +42,7 @@ const UserPlans = () => {
     if (!confirmation.isConfirmed) return
 
     try {
-      const res = await axios.post('http://localhost:9000/user-purchase-plan', { planId, userId })
+      const res = await axios.post('/user-purchase-plan', { planId, userId })
       if (res?.data?.success) {
         await fetchData()
         await Swal.fire({

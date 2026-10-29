@@ -3,7 +3,7 @@ import { FaCamera } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import axios from 'axios'
+import axios from '../../api'
 import Swal from 'sweetalert2'
 
 const schema = yup.object({
@@ -55,7 +55,7 @@ const AdminProfile = () => {
       npassword: data.npassword || '',
     }
 
-    const res = await axios.put('http://localhost:9000/admin-profile-update', finalData)
+    const res = await axios.put('/admin-profile-update', finalData)
 
     if (res?.data?.success === true) {
       localStorage.setItem(

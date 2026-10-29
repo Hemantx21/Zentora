@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../api";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaClock } from "react-icons/fa";
@@ -16,8 +16,8 @@ const UserProjects = () => {
   const fetchData = async () => {
     const info = JSON.parse(localStorage.getItem('info') || '{}');
     const [projectsRes, statsRes] = await Promise.all([
-      axios.get("http://localhost:9000/user-project-list"),
-      axios.get(`http://localhost:9000/user-stats?userId=${info?._id}`)
+      axios.get("/user-project-list"),
+      axios.get(`/user-stats?userId=${info?._id}`)
     ]);
     setData(projectsRes?.data?.result || []);
     setCredits(Number(statsRes?.data?.result?.credits) || 0);
@@ -34,7 +34,7 @@ const UserProjects = () => {
       return 0
     }
     const data = { userId, projectId, amount }
-    const res = await axios.post('http://localhost:9000/user-create-bids', data);
+    const res = await axios.post('/user-create-bids', data);
     if (res?.data?.success == true) {
       Swal.fire({
         title: "Biding",
@@ -44,7 +44,7 @@ const UserProjects = () => {
       setProjectId(null);
       setAmount(null)
       const info = JSON.parse(localStorage.getItem('info') || '{}');
-      const statsRes = await axios.get(`http://localhost:9000/user-stats?userId=${info?._id}`);
+      const statsRes = await axios.get(`/user-stats?userId=${info?._id}`);
       setCredits(Number(statsRes?.data?.result?.credits) || 0);
     } else {
       Swal.fire({

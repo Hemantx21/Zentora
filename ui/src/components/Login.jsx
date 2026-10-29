@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
+import axios from "../api";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Login = () => {
   });
 
   const handleLogin = async (data) => {
-    const res = await axios.post('http://localhost:9000/login', data);
+    const res = await axios.post('/login', data);
     if (res?.data?.success == true) {
       localStorage.setItem("info", JSON.stringify(res?.data?.result))
       if (res?.data?.result?.type == 'admin') {

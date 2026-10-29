@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
+import axios from "../../api";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const ClientPostProject = () => {
     const finalData = { ...data, clientId };
 
     const res = await axios.post(
-      "http://localhost:9000/client-post-project",
+      "/client-post-project",
       finalData
     );
 

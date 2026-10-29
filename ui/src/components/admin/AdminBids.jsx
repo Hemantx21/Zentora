@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../api'
 import React, { useEffect, useState } from 'react'
 
 const AdminBids = () => {
@@ -9,7 +9,7 @@ const AdminBids = () => {
   }, [])
 
   const fetchData = async () => {
-    const res = await axios.get('http://localhost:9000/admin-biding-list')
+    const res = await axios.get('/admin-biding-list')
     setData(res?.data?.result || [])
   }
 

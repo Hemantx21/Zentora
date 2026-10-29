@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaTrash, FaEye } from 'react-icons/fa'
-import axios from 'axios'
+import axios from '../../api'
 
 const ClientManageProjects = () => {
   const navigate = useNavigate()
@@ -12,7 +12,7 @@ const ClientManageProjects = () => {
   const fetchData = async () => {
     const info = JSON.parse(localStorage.getItem('info'));
     const clientId = info?._id;
-    const res = await axios.get(`http://localhost:9000/client-project-list?clientId=${clientId}`)
+    const res = await axios.get(`/client-project-list?clientId=${clientId}`)
     setData(res?.data?.result)
   }
   return (

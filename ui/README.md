@@ -21,4 +21,8 @@ npm run preview
 npm run lint
 ```
 
-The UI currently sends API requests to `http://localhost:9000`. Configure the frontend API host before using it with an API deployed elsewhere.
+The UI uses `http://localhost:9000` during development and `https://zentora-u5tc.onrender.com` in production by default. Set `VITE_API_URL` to override the API host.
+
+## Deploy to Vercel
+
+Set the Vercel project's Root Directory to `ui`. Vercel uses `npm run build` and `dist` for the production build; `vercel.json` sends client-side routes to the app. The deployed frontend connects to `https://zentora-u5tc.onrender.com` by default. If you set `VITE_API_URL` in Vercel, use the public API origin with `https://` and no trailing slash, then redeploy.

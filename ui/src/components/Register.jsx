@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import axios from "axios";
+import axios from "../api";
 import Swal from "sweetalert2";
 const schema = yup
   .object()
@@ -18,7 +18,7 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
   const handleRegister = async (data) => {
-    const res = await axios.post('http://localhost:9000/register', data)
+    const res = await axios.post('/register', data)
     if (res?.data?.success == true) {
       Swal.fire({
         title: "Register",

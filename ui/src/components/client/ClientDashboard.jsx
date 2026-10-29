@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../api'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaBriefcase, FaComments, FaHandshake } from 'react-icons/fa'
@@ -13,7 +13,7 @@ const ClientDashboard = () => {
 
   const fetchData = async () => {
     const clientId = info?._id
-    const res = await axios.get(`http://localhost:9000/client-stats?clientId=${clientId}`)
+    const res = await axios.get(`/client-stats?clientId=${clientId}`)
     setStats(res?.data?.result)
   }
 
