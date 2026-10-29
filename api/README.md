@@ -1,27 +1,42 @@
-# API setup and deployment
+# Zentora API
 
-## Configure the API
+The API is an Express application backed by MongoDB. For the complete project overview, prerequisites, and local development instructions, see the [repository README](../README.md).
 
-Copy `.env.example` to `.env` in this folder and set `MONGODB_URI` to your MongoDB connection string. For local development, start MongoDB and use the example local URI. For deployment, use your hosted MongoDB URI and set these variables in the hosting provider's secret/environment-variable settings instead of uploading a `.env` file:
+## Configuration
 
-- `MONGODB_URI` (required): MongoDB connection string.
-- `PORT` (optional): API port; defaults to `9000`.
-- `ADMIN_NAME`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD`: required only when running the one-time admin setup below.
+Create a `.env` file in this `api` directory (that is, `api/.env` from the repository root) with the following variables:
 
-Install dependencies with `npm install`, then start the API with `npm run dev` locally or `npm start` in deployment.
+```dotenv
+MONGODB_URI=mongodb://127.0.0.1:27017/zentora
+PORT=9000
+ADMIN_NAME=Zentora Admin
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=change-this-password
+```
 
-Never put database credentials or admin passwords in the UI's `VITE_*` variables: Vite embeds those values in public browser code.
+- `MONGODB_URI` is required. Set it to your local or hosted MongoDB connection string.
+- `PORT` is optional and defaults to `9000`.
+- `ADMIN_NAME`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` are needed only when running the initial admin setup script.
 
-## Create the initial admin and demo plan
+The API loads `.env` using `dotenv`. Run API commands from this `api` directory so the file is found. Do not commit `.env` or use real credentials in examples.
 
-Set the `ADMIN_NAME`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` values in `api/.env` (or provide them through your deployment provider's environment settings), then run the one-time command from this folder:
+## Install and run
+
+```powershell
+npm ci
+npm run dev
+```
+
+For a non-development start, use `npm start`.
+
+## Create the initial admin
+
+With MongoDB available and the admin variables configured, run:
 
 ```powershell
 npm run create-admin
 ```
 
-The password must be 8-18 characters to match the login form. The script creates the admin only if the email is unused; it will not promote an existing client or freelancer account. If there are no plans yet, it also creates a free 10-credit demo plan for testing. No payment is processed.
+The admin password must be 8–18 characters. The script creates an account only if the email is unused; it does not promote an existing non-admin account. If there are no plans yet, it also creates a free 10-credit demo plan. No payment is processed.
 
-After setup, open the UI's `/login` page and sign in using the admin email and password. Open **Plans** in the admin navigation to add plans. A freelancer can then open **Plans**, choose **Get Plan**, confirm the development credit grant, and use the credits to bid; each successful bid deducts one credit.
-
-Do not use this prototype's plain-text password handling for a public production deployment.
+Do not deploy this prototype with real user data: password handling is not production-ready and the API does not provide production-grade authentication and authorization.
